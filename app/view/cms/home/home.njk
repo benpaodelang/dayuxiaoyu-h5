@@ -1,0 +1,209 @@
+{% extends "../template.njk" %}
+{% import "../macro.njk" as fragment %}
+
+{% block body %}
+
+{{ fragment.footer(showHeader=false) }}
+
+<section class="ui-container">
+
+
+    <!-- 焦点图 -->
+    <div class="slides">
+        {% for slider in sliderList.data.list %}
+        <div style="background-image:url({{slider.image}})">
+            <a href="{{slider.url}}" ></a>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- /焦点图 -->
+
+    <!-- 幻灯片开始
+    <section>
+        <div class="ui-slider" style="padding-top: 100%" id="slider">
+            <ul class="ui-slider-content" style="width: {{sliderList.data.list.length}}00%">
+             {% for slider in sliderList.data.list %}
+                <li>
+                    <a href="{{slider.url}}">
+                        <span style="background-image:url({{slider.image}})"></span>
+                    </a>
+                </li>
+             {% endfor %}
+            </ul>
+        </div>
+
+        <script class="demo-script">
+            (function () {
+                var slider = new fz.Scroll('.ui-slider', {
+                    role: 'slider',
+                    indicator: true,
+                    autoplay: true,
+                    interval: 3000
+                });
+            })();
+        </script>
+    </section>
+    <!-- 幻灯片结束 -->
+
+    <!-- 新闻热点开始 -->
+    <section style="background-color: #ffffff; margin-top: 15px;">
+        <p style="font-size: 18px;padding: 15px 0px 10px 15px;">新闻热点</p>
+        <ul class="ui-list ui-list-link ui-border-tb">
+            {% for new in newList.data.list %}
+            <li class="ui-border-t" data-href="/new/detail?id={{new.id}}">
+                <div class="ui-list-img">
+                    <span style="background-image:url({{new.thumbnail}})"></span>
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">{{new.title}}</h4>
+                    <p class="ui-nowrap" style="font-size: 14px;">{{new.description}}</p>
+                    <p class="ui-nowrap" style="font-size: 12px; color: #999;">{{helper.timeFormat(new.createTime,'YYYY-MM-DD')}}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <a class="ui-border-t" href="/new" style="padding: 10px; display: block;">
+                <p style="text-align: center;color:#dfc17b">查看全部</p>
+        </a>
+    </section>
+    <!-- 新闻热点结束 -->
+
+    <section style="margin-top: 30px;">
+        <ul class="ui-row ui-whitespace" style="text-align: center;margin-bottom: 20px;">
+            <img src="/public/img/tjxm.png" style="width:70%">
+        </ul>
+        <ul class="ui-row ui-whitespace product-con look">
+            {% for immigration in immigrationList.data.list %}
+            <li class="product-item">
+                <figcaption>
+                    <a href="/immigration/detail?id={{immigration.id}}">
+                        <h3>
+                            <p>
+                                <ss>{{immigration.country}}</ss>
+                                {{immigration.title}}
+                                <span>{{immigration.subTitle}}</span>
+                            </p>
+                        </h3>
+                        <em>
+                            <img src="{{immigration.picture}}" alt=""/>
+                            <img src="/public/img/kb.png" alt="" class="kb" />
+                        </em>
+                    </a>
+                </figcaption>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section style="margin-top: 20px;">
+        <ul class="ui-row ui-whitespace" style="text-align: center;margin-bottom: 20px;">
+            <img src="/public/img/tjfc.png" style="width:70%">
+        </ul>
+        <ul class="ui-justify ui-whitespace look" style="margin-bottom: 15px;">
+           <!-- {% for house in houseList.data.list %}
+            {% if loop.index == 1 %}
+            <li style="width: 100%;">
+                <a href="/house/detail?id={{house.id}}">
+                <div style="background-color: #fff">
+                    <em>
+                        <img src="{{house.picture}}" alt=""/>
+                        <img src="/public/img/kb.png" alt="" class="kb" />
+                    </em>
+                    <div style="padding: 10px;">
+                        <p style="text-align: left;font-size:25px; margin-bottom: 5px;">{{house.title}}<span
+                                style="display:block;float:right;font-weight:bold;">{{house.price}}万{{house.priceUnit}}</span></p>
+                        <p style="text-align: left">{{house.countryName}} | {{house.region}} | 约{{house.area}} | {{house.houseType}}</p>
+                    </div>
+                </div>
+                </a>
+            </li>
+            {% endif %}
+            {% endfor %} -->
+
+            {% for house in houseList.data.list %}
+            {% if loop.index > 0 %}
+            <li style="width: 49%;">
+                <a href="/house/detail?id={{house.id}}">
+                <div style="">
+                    <em>
+                        <img src="{{house.picture}}" alt=""/>
+                        <img src="/public/img/kb.png" alt="" class="kb" />
+                    </em>
+                    <div style="padding: 10px; background-color: #ffffff">
+                        <p style="text-align: left;font-size:18px; margin-bottom: 5px;">{{house.title}}</p>
+                        <p style="text-align: left;font-size:18px; margin-bottom: 5px;color: #dfc17b">{{house.price}}万{{house.priceUnit}}</p>
+                        <p style="text-align: left;font-size: 12px;">{{house.countryName}} | 约{{house.area}}㎡ | {{house.houseType}}</p>
+                    </div>
+                </div>
+                </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section style="margin-top: 20px;">
+
+        <ul class="ui-row ui-whitespace" style="text-align: center;margin-bottom: 20px;">
+            <img src="/public/img/gywm.png" style="width:70%">
+        </ul>
+
+        <ul class="ui-row ui-whitespace">
+            <img src="/public/img/wm.png" style="width: 100%">
+            <p style="font-size: 13px;margin-top: 10px;">
+                大鱼小鱼出国集团以专业的团队、严谨的审核标准为中国高净值人群提供投资移民及相关服务，主要业务涵盖投资移民、海外置业、出国留学教育等。
+            </p>
+            <img src="/public/img/cgal.png" style="width: 100%;margin-top: 20px;">
+            <p style="font-size: 13px;margin-top: 10px;">
+                大鱼小鱼出国集团同时打造了自己的全新品牌—欧洲时代，致力于欧洲国家，西班牙、葡萄牙、塞浦路斯、希腊、马耳他等国的投资移民，严守8大项目审核标准，甄选投资价值突出的移民项目，为用户带来便捷、贴心的管家式投资移民服务，是"值得每个家托付"的品牌新主张。
+            </p>
+        </ul>
+
+        <ul class="ui-row ui-whitespace" style="margin-top: 30px;margin-bottom: 30px;">
+            <li class="ui-col ui-col-50" style="text-align: center">
+                <img src="/public/img/ewm1.jpg" style="width: 60%">
+                <p>欧洲时代</p>
+            </li>
+            <li class="ui-col ui-col-50" style="text-align: center">
+                <img src="/public/img/ewm2.jpg" style="width: 60%">
+                <p>掘金东南亚</p>
+            </li>
+        </ul>
+
+    </section>
+
+
+</section><!-- /.ui-container-->
+<style>
+    .ui-slider-indicators {
+        right: 50%;
+        margin-right: -39px;
+    }
+
+    .ui-slider-indicators li {
+        width: 15px;
+        height: 15px;
+        background-color: #ffffff;
+    }
+
+    .ui-slider-indicators li.current::before {
+        width: 15px;
+        height: 15px;
+        left: 0px;
+        top: 0px;
+        background-color: #dfc17b;
+    }
+
+</style>
+<script>
+    $('.ui-list li,.ui-tiled li').click(function () {
+        if ($(this).data('href')) {
+            location.href = $(this).data('href');
+        }
+    });
+    $('.ui-header .ui-btn').click(function () {
+        location.href = 'index.html';
+    });
+</script>
+
+{% endblock %}

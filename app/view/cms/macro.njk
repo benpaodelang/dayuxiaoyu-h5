@@ -1,0 +1,103 @@
+{% macro footer(showHeader=true,headTitle="",type="home") %}
+<footer id="footer" class="ui-footer ui-footer-btn">
+    {% if showHeader %}
+    <header class="ui-header ui-header-positive ui-border-b">
+        <i class="ui-icon-return" onclick="history.back()"></i><h1>{{headTitle}}</h1>
+    </header>
+    {% endif %}
+    <ul class="ui-tiled ui-border-t">
+        <li data-href="/">
+            <img src="/public/img/home{%if type=="home" %}_on{% endif %}.png" style="width: 20px;height: 20px; padding-top: 5px;">
+            <div>首页</div>
+        </li>
+        <li data-href="/immigration">
+            <img src="/public/img/yimin{%if type=="yimin" %}_on{% endif %}.png" style="width: 20px;height: 20px; padding-top: 5px;">
+            <div>移民</div>
+        </li>
+        <li data-href="/house">
+            <img src="/public/img/fangchan{%if type=="fangchan" %}_on{% endif %}.png" style="width: 20px;height: 20px; padding-top: 5px;">
+            <div>房产</div>
+        </li>
+        <li data-href="/shengzi">
+            <img src="/public/img/shengzi{%if type=="shengzi" %}_on{% endif %}.png" style="width: 25px;height: 20px; padding-top: 5px;">
+            <div>海外生子</div>
+        </li>
+        <li data-href="/advisory">
+            <img src="/public/img/pinggu{%if type=="pinggu" %}_on{% endif %}.png" style="width: 20px;height: 20px; padding-top: 5px;">
+            <div>评估</div>
+        </li>
+    </ul>
+</footer>
+<style>
+.ui-header-positive, .ui-footer-positive{
+        background-color: #333;
+ }
+.ui-footer-btn {
+        background-color: #ffffff;
+        background-image: none;
+        color: #333333;
+        font-size:14px;
+    }
+</style>
+{% endmacro %}
+
+
+{% macro advisory(countryList,csrf) %}
+<section style="margin-bottom: 20px; padding-left: 15px;padding-right: 15px;">
+        <div class="ui-form" style="background: none">
+            <form action="#">
+                <div class="ui-form-item">
+                    <label>意向国家</label>
+                    <div class="ui-select">
+                        <select id="advisoryCountry">
+                        {% for country in countryList %}
+                        <option value="{{country.id}}">{{country.name}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="ui-form-item ui-form-item-show">
+                    <label>姓名</label>
+                    <input type="text" id="advisoryName" value="">
+                </div>
+                <div class="ui-form-item ui-form-item-show">
+                    <label>手机号</label>
+                    <input type="text" id="advisoryPhone" value="">
+                </div>
+
+                <div class="ui-btn-wrap" style="padding-left: 0px;padding-right: 0px; border-radius: 0px;">
+                    <button id="advisorySubmit" class="ui-btn-lg active" style="background-color: #dfc17b;border: 0px;color: #000000;border-radius: 0px;">
+                        提交
+                    </button>
+                </div>
+
+                <div style="text-align: center"><img src="/public/img/or.jpg" ></div>
+
+                <div style="margin-top: 15px; margin-bottom: 50px;">
+                    <a href="tel:4006383628">
+                        <img src="/public/img/zixun.jpg" style="width:100%">
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
+        <script>
+                        $(document).ready(function(){
+                                $("#advisorySubmit").click(function(){
+                                    var request = {};
+                                    request.advisoryCountry = $("#advisoryCountry").val();
+                                    request.advisoryName = $("#advisoryName").val();
+                                    request.advisoryPhone = $("#advisoryPhone").val();
+                                    $.post("/submit?_csrf={{ csrf | safe }}", request,
+                                              function(data){
+                                              $("#advisoryName").val("");
+                                              $("#advisoryPhone").val("");
+                                              alert("提交成功,请等待客服回访")
+                                              });
+
+                                })
+                            })
+                        </script>
+ </section>
+{% endmacro %}

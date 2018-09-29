@@ -1,0 +1,123 @@
+{% extends "../template.njk" %}
+{% import "../macro.njk" as fragment %}
+
+{% block body %}
+
+{{ fragment.footer(headTitle="海外房产",type="fangchan") }}
+
+
+<section class="ui-container">
+
+    <section style="background-color: #ffffff;">
+        <div style="position: relative">
+            <div onclick="history.back()" style="position: absolute;left: 15px;top: 15px;width: 35px;height: 35px;">
+                <img src="/public/img/fanhui.png" style="width: 100%">
+            </div>
+            <div style="position: absolute;right: 15px;top: 15px;width: 35px;height: 35px;">
+                <img src="/public/img/fenxiang.png" style="width: 100%">
+            </div>
+
+            <!-- 焦点图 -->
+            <div class="slides3">
+                {% for video in houseModel.data.data.videoList %}
+                <div>
+                    <div class="sp" style="margin-top: 45px;">
+                        <video id="" class="video_a" controls="controls"  poster="{{video.image}}" preload="none" width="100%;" height="235px" >
+                            <source src="{{video.path}}" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                {% endfor %}
+                {% for picture in houseModel.data.data.pictureList %}
+                <div style="background-image:url({{picture}})"></div>
+                {% endfor %}
+            </div>
+            <!-- /焦点图 -->
+
+
+            <div class="ui-whitespace">
+                <p style="font-size: 24px; font-size:500; margin: 10px 0;">{{houseModel.data.data.title}}</p>
+                <p style="color: #dfc17b; font-size: 25px; font-weight: bold;margin-bottom: 10px;">{{houseModel.data.data.price}}万{{houseModel.data.data.priceUnit}}</p>
+                <p style="font-size: 16px;line-height: 25px;color: #333333; padding-bottom: 20px; ">{{houseModel.data.data.description}}</p>
+            </div>
+            <div class="ui-whitespace" style="border-top: 1px solid #eeeeee;padding-bottom: 10px;">
+                <table style="margin-top: 10px; width: 100%;">
+                    <tr style="height: 45px;">
+                        <td><span style="color: #999999;">国家:</span></td>
+                        <td><span style="font-size: 18px;">{{houseModel.data.data.countryName}}</span></td>
+                        <td><span style="color: #999999;">面积:</span></td>
+                        <td><span style="font-size: 18px;">{{houseModel.data.data.area}}</span></td>
+                    </tr>
+                    <tr style="height: 45px;">
+                        <td><span style="color: #999999;">位置:</span></td>
+                        <td><span style="font-size: 18px;">{{houseModel.data.data.region}}</span></td>
+                        <td><span style="color: #999999;">楼层:</span></td>
+                        <td><span style="font-size: 18px;">{{houseModel.data.data.floor}}层</span></td>
+                    </tr>
+                    <tr style="height: 45px;">
+                        <td><span style="color: #999999;">物业:</span></td>
+                        <td><span style="font-size: 18px;">{{houseModel.data.data.houseType}}</span></td>
+                        <td><span style="color: #999999;">户型:</span></td>
+                        <td><span style="font-size: 18px;">{{houseModel.data.data.huxing}}</span></td>
+                    </tr>
+                    <tr style="height: 45px;">
+                        <td><span style="color: #999999;">年收益:</span></td>
+                        <td><span style="font-size: 18px;">{{houseModel.data.data.income}}%</span></td>
+                        <td><span style="color: #999999;">电梯:</span></td>
+                        <td>
+                        <span style="font-size: 18px;">
+                        {% if houseModel.data.data.elevator==0 %}
+                          无
+                        {% else %}
+                          有
+                        {% endif %}
+                        </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: #ffffff; margin-top: 20px; margin-bottom: 20px;">
+        <div class="ui-whitespace contentArea" style="padding-top: 20px;padding-bottom: 20px;">
+            {{houseModel.data.data.content | safe}}
+        </div>
+    </section>
+
+
+
+
+
+</section><!-- /.ui-container-->
+
+<style>
+    .ui-tab-nav li.current{
+        color: #dfc17b;
+        border-bottom: 2px #dfc17b solid;
+    }
+
+    .ui-form-item {
+        border: 1px solid #dddddd;
+        background-color: #ffffff;
+        margin-bottom: 15px;
+        height: 45px;
+        line-height: 45px;
+    }
+    .ui-form-item label {
+        color: #ababab;
+    }
+</style>
+
+<script>
+    $('.ui-list li,.ui-tiled li').click(function () {
+        if ($(this).data('href')) {
+            location.href = $(this).data('href');
+        }
+    });
+    $('.ui-header .ui-btn').click(function () {
+        location.href = 'index.html';
+    });
+</script>
+
+{% endblock %}

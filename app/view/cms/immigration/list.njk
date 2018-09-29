@@ -1,0 +1,101 @@
+{% extends "../template.njk" %}
+{% import "../macro.njk" as fragment %}
+
+{% block body %}
+
+{{ fragment.footer(headTitle="移民项目",type="yimin") }}
+
+
+<section class="ui-container">
+
+    <section style="margin-top: 45px;">
+        <div class="ui-tab">
+            <ul class="ui-tab-nav ui-border-b">
+                <li class="current">永居卡项目</li>
+                <li>护照项目</li>
+            </ul>
+            <ul class="ui-tab-content" style="width:200%; padding-top: 15px;">
+                <li class="current">
+                    <ul class="ui-row ui-whitespace product-con look">
+                    {% for immigration in immigrationList.data.list %}
+
+                        <li class="product-item">
+                        <figcaption>
+                            <a href="/immigration/detail?id={{immigration.id}}" >
+                                <h3>
+                                    <p>
+                                        <ss>{{immigration.country}}</ss>
+                                        {{immigration.title}}
+                                        <span>{{immigration.subTitle}}</span>
+                                    </p>
+                                </h3>
+                                <em>
+                                    <img src="{{immigration.picture}}"  >
+                                    <img src="/public/img/kb.png" alt="" class="kb" />
+                                </em>
+                            </a>
+                        </figcaption>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li>
+                    <ul class="ui-row ui-whitespace product-con look">
+                    {% for passport in passportList.data.list %}
+                        <li class="product-item">
+                            <figcaption>
+                                <a href="/passport/detail?id={{passport.id}}" >
+                                    <h3>
+                                        <p>
+                                            <ss>{{passport.country}}</ss>
+                                            {{passport.title}}
+                                            <span>{{passport.subTitle}}</span>
+                                        </p>
+                                    </h3>
+                                    <em>
+                                        <img src="{{passport.picture}}" >
+                                        <img src="/public/img/kb.png" alt="" class="kb" />
+                                    </em>
+                                </a>
+                            </figcaption>
+                        </li>
+
+                    {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <script>
+            (function () {
+                var tab = new fz.Scroll('.ui-tab', {
+                    role: 'tab',
+                    autoplay: false,
+                    interval: 3000
+                });
+
+            })();
+        </script>
+    </section>
+
+
+</section><!-- /.ui-container-->
+
+<style>
+    .ui-tab-nav li.current {
+        color: #dfc17b;
+        border-bottom: 2px #dfc17b solid;
+    }
+</style>
+
+<script>
+    $('.ui-list li,.ui-tiled li').click(function () {
+        if ($(this).data('href')) {
+            location.href = $(this).data('href');
+        }
+    });
+    $('.ui-header .ui-btn').click(function () {
+        location.href = 'index.html';
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "../template.njk" %}
+{% import "../macro.njk" as fragment %}
+
+{% block body %}
+{{ fragment.footer(headTitle="海外生子",type="shengzi") }}
+
+<section class="ui-container">
+    <section style="margin-top: 45px;">
+        <ul class="ui-row ui-whitespace product-con look" style="width:100%; padding-top: 15px;">
+            <li class="product-item">
+                <figcaption>
+                    <a href="/new/detail?id=13" class="info" target="_blank">
+                        <h3>
+                            <p>
+                                <ss>Canada</ss>
+                                赴加生子项目<span>高福利，低价格</span></p>
+                        </h3>
+                        <em><img src="/public/img/534767.jpg" alt=""><img src="/public/img/kb.png" alt="" class="kb" /></em>
+                    </a>
+                </figcaption>
+            </li>
+            <li class="product-item">
+                <figcaption>
+                    <a href="/new/detail?id=27" class="info" target="_blank">
+                        <h3>
+                            <p>
+                                <ss>U.S.A</ss>
+                                赴美生子项目<span>多种套餐选择，满足不同需求</span></p>
+                        </h3>
+                        <em><img src="/public/img/500463705.jpg" alt=""><img src="/public/img/kb.png" alt="" class="kb" /></em>
+                    </a>
+                </figcaption>
+            </li>
+
+        </ul>
+    </section>
+</section>
+
+<style>
+    .ui-tab-nav li.current {
+        color: #dfc17b;
+        border-bottom: 2px #dfc17b solid;
+    }
+</style>
+
+<script>
+    $('.ui-list li,.ui-tiled li').click(function () {
+        if ($(this).data('href')) {
+            location.href = $(this).data('href');
+        }
+    });
+    $('.ui-header .ui-btn').click(function () {
+        location.href = 'index.html';
+    });
+</script>
+
+{% endblock %}

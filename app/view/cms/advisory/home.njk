@@ -1,0 +1,212 @@
+{% extends "../template.njk" %}
+{% import "../macro.njk" as fragment %}
+
+{% block body %}
+
+{{ fragment.footer(headTitle="专业评估",type="pinggu") }}
+
+<section class="ui-container">
+
+    <section style="margin-top: 50px;">
+        <div style="position: absolute; z-index: 0;top:45px;">
+            <img src="/public/img/pingce.jpg" style="width: 100%;">
+        </div>
+        <div class="ui-whitespace" style="position: absolute;left:0px;right:0px;background-image: url(/public/img/pingce_bg_2.png);background-size:100%;background-repeat: no-repeat;padding:30px;padding-top:35px; top:260px; ">
+            <div class="ui-form" style="background: none">
+                <form action="#">
+                    <div class="ui-form-item">
+                        <label>意向国家</label>
+                        <div class="ui-select">
+                            <select id="advisoryCountry">
+                            {% for country in countryList.data.list %}
+                            <option value="{{country.id}}">{{country.name}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui-form-item ui-form-item-show">
+                        <label>姓名</label>
+                        <input type="text" id="advisoryName" value="">
+                    </div>
+                    <div class="ui-form-item ui-form-item-show">
+                        <label>手机号</label>
+                        <input type="text" id="advisoryPhone" value="">
+                    </div>
+                    <div class="ui-form-item">
+                        <label>移民需求</label>
+                        <div class="ui-select">
+                            <select id="advisoryImmigrationRequest">
+                                <option>子女教育</option>
+                                <option>医疗服务</option>
+                                <option>资产配置</option>
+                                <option>工作机会</option>
+                                <option>生活环境</option>
+                                <option>定居养老</option>
+                                <option>合理避税</option>
+                                <option>出行畅通</option>
+                                <option>海外业务</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui-form-item">
+                        <label>时间要求</label>
+                        <div class="ui-select">
+                            <select id="advisoryTimeRequest">
+                                <option>1个月</option>
+                                <option selected>1-3个月</option>
+                                <option>3-6个月</option>
+                                <option>6-12个月</option>
+                                <option>12个月以上</option>
+                                <option>24个月以上</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui-form-item">
+                        <label>投资预算</label>
+                        <div class="ui-select">
+                            <select id="advisoryPriceRequest">
+                                <option>100-300万</option>
+                                <option selected>300-500万</option>
+                                <option>500-800万</option>
+                                <option>800-1000万</option>
+                                 <option>1000万以上</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui-form-item">
+                        <label>最高学历</label>
+                        <div class="ui-select">
+                            <select id="advisoryEducation">
+                                <option>硕士及以上</option>
+                                <option selected>大学本科</option>
+                                <option>高中及以下</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui-form-item">
+                                            <label>政治面貌</label>
+                                            <div class="ui-select">
+                                                <select id="advisoryPolitical">
+                                                    <option>中共党员</option>
+                                                    <option selected>其他民主派人士</option>
+                                                    <option>无党派人士</option>
+                                                    <option>群众</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                    <div class="ui-form-item">
+                        <label>经历</label>
+                        <div class="ui-select">
+                            <select id="advisoryOverseasExperience">
+                                <option>有留学经验</option>
+                                <option selected>有经商经验</option>
+                                <option>有海外生活经历</option>
+                                <option>有海外旅游经历</option>
+                                <option>有海外工作经历</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui-form-item">
+                        <label>可承受风险</label>
+                        <div class="ui-select">
+                            <select id="advisoryRiskTolerance">
+                                <option>低风险</option>
+                                <option selected>中风险</option>
+                                <option>高风险</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ui-form-item">
+                                            <label>英语水平</label>
+                                            <div class="ui-select">
+                                                <select id="advisoryEnglish">
+                                                    <option>雅思</option>
+                                                    <option selected>托福</option>
+                                                    <option>大学英语4级</option>
+                                                    <option>大学英语6级</option>
+                                                    <option>英语8级</option>
+                                                    <option>其他</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                    <div class="ui-btn-wrap" style="padding-left: 0px;padding-right: 0px; border-radius: 0px;">
+                        <button id="advisorySubmit" class="ui-btn-lg active" style="background-color: #dfc17b;border: 0px;color: #000000; border-radius: 0px;">
+                            提交
+                        </button>
+                    </div>
+
+                    <div style="text-align: center"><img src="/public/img/or.jpg" ></div>
+
+                    <div style="margin-top: 15px; margin-bottom: 50px;">
+                        <a href="tel:4006383628">
+                            <img src="/public/img/zixun.jpg" style="width:100%">
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+
+</section><!-- /.ui-container-->
+
+<style>
+
+ body {
+        background-color: #f2f2f2!important;
+    }
+
+    .ui-tab-nav li.current{
+        color: #dfc17b;
+        border-bottom: 2px #dfc17b solid;
+    }
+
+    .ui-form-item {
+        border: 1px solid #dddddd;
+        background-color: #ffffff;
+        margin-bottom: 15px;
+        height: 35px;
+        line-height: 35px;
+    }
+    .ui-form-item label {
+        color: #ababab;
+    }
+</style>
+
+<script>
+    $('.ui-list li,.ui-tiled li').click(function () {
+        if ($(this).data('href')) {
+            location.href = $(this).data('href');
+        }
+    });
+    $('.ui-header .ui-btn').click(function () {
+        location.href = 'index.html';
+    });
+
+    $(document).ready(function(){
+        $("#advisorySubmit").click(function(){
+            var request = {};
+            request.advisoryCountry = $("#advisoryCountry").val();
+            request.advisoryName = $("#advisoryName").val();
+            request.advisoryPhone = $("#advisoryPhone").val();
+            request.advisoryImmigrationRequest = $("#advisoryImmigrationRequest").val();
+            request.advisoryTimeRequest = $("#advisoryTimeRequest").val();
+            request.advisoryPriceRequest = $("#advisoryPriceRequest").val();
+            request.advisoryEducation = $("#advisoryEducation").val();
+            request.advisoryPolitical = $("#advisoryPolitical").val();
+            request.advisoryOverseasExperience = $("#advisoryOverseasExperience").val();
+            request.advisoryRiskTolerance = $("#advisoryRiskTolerance").val();
+            request.advisoryEnglish = $("#advisoryEnglish").val();
+            $.post("/submit?_csrf={{ ctx.csrf | safe }}", request,
+                      function(data){
+                      alert("提交成功,请等待客服回访")
+                      });
+
+        })
+    })
+</script>
+
+{% endblock %}

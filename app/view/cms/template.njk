@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>FrozenUI Demo</title>
+    <link rel="stylesheet" href="/public/css/frozen.css">
+    <link rel="shortcut icon" href="/public/images/favicon.ico"/>
+    <link rel="bookmark" href="/public/images/favicon.ico"/>
+    <link rel="stylesheet" href="/public/css/font-awesome/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/mediaplay.css">
+    <script src="/public/lib/zepto.min.js"></script>
+    <script src="/public/js/frozen.js"></script>
+    <script src="/public/js/jquery.min.js"></script>
+    <script src="/public/js/mediaelement-and-player.min.js"></script><!-- 视频 -->
+    <script type="text/javascript" src="/public/js/jquery.slides.js"></script><!-- 幻灯片 -->
+    {% block head %}{% endblock %}
+    <style>
+        body { background-color: #f2f2f2; }
+        a { color: #333333; }
+        .contentArea img { width:100%; }
+    </style>
+    <!-- 视频播放器 -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('video.video_a').mediaelementplayer({
+                alwaysShowControls: false,
+                videoVolume: 'horizontal',
+                features: ['playpause','progress','volume','fullscreen']
+            });
+        });
+    </script>
+</head>
+
+<body ontouchstart>
+    {% block body %}{% endblock %}
+</body>
+</html>

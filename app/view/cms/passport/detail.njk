@@ -1,0 +1,260 @@
+{% extends "../template.njk" %}
+{% import "../macro.njk" as fragment %}
+
+{% block body %}
+
+{{ fragment.footer(headTitle="护照项目",type="yimin") }}
+
+
+<section class="ui-container">
+
+    <section style="background-color: #ffffff;">
+        <div style="position: relative">
+            <div onclick="history.back()" style="position: absolute;left: 15px;top: 15px;width: 35px;height: 35px;">
+                <img src="/public/img/fanhui.png" style="width: 100%">
+            </div>
+            <div style="position: absolute;right: 15px;top: 15px;width: 35px;height: 35px;">
+                <img src="/public/img/fenxiang.png" style="width: 100%">
+            </div>
+            <div style="position: absolute;background-image: url(/public/img/chilun.png); background-repeat: repeat-x;width: 100%;height: 25px;top:260px;background-size:50px;"></div>
+            <div>
+                <img src="{{passportModel.data.data.picture}}" style="width: 100%;height: 280px;">
+            </div>
+            <div class="ui-whitespace">
+                <p style="font-size: 18px;line-height: 25px;color: #333333; padding-bottom: 20px; ">{{passportModel.data.data.title}}</p>
+            </div>
+            <div class="ui-whitespace" style="border-top: 1px solid #eeeeee;padding-bottom: 10px;">
+                <table style="margin-top: 10px;">
+                    <tr style="height: 45px;">
+                        <td style="width: 40px;">
+                            <img src="/public/img/tzed.png" style="width: 30px;">
+                        </td>
+                        <td style="width: 90px; padding-right: 10px;">
+                            <span style="color: #bfbfbf">投资额度:</span>
+                        </td>
+                        <td style="padding-left: 30px;">
+                            <span>
+                                {{passportModel.data.data.price}}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr style="height: 45px;">
+                        <td style="width: 40px;">
+                            <img src="/public/img/blzq.png" style="width: 30px;">
+                        </td>
+                        <td style=" width: 90px; padding-right: 10px;">
+                            <span style="color: #bfbfbf">办理周期:</span>
+                        </td>
+                        <td style="padding-left: 30px;">
+                            <span>
+                                {{passportModel.data.data.period}}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr style="height: 45px;">
+                        <td style="width: 40px;">
+                            <img src="/public/img/sflx.png" style="width: 30px;">
+                        </td>
+                        <td style="width: 90px; padding-right: 10px;">
+                            <span style="color: #bfbfbf">身份类型:</span>
+                        </td>
+                        <td style="padding-left: 30px;">
+                            <span>
+                                {{passportModel.data.data.identityType}}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr style="height: 45px;">
+                        <td style="width: 40px;">
+                            <img src="/public/img/zjyq.png" style="width: 30px;">
+                        </td>
+                        <td style="width: 90px; padding-right: 10px;">
+                            <span style="color: #bfbfbf">居住要求:</span>
+                        </td>
+                        <td style="padding-left: 30px;">
+                            <span>
+                                {{passportModel.data.data.livingRequirement}}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr style="height: 45px;">
+                        <td style="width: 40px;">
+                            <img src="/public/img/fzjl.png" style="width: 30px;">
+                        </td>
+                        <td style="width: 90px; padding-right: 10px;">
+                            <span style="color: #bfbfbf">无犯罪记录:</span>
+                        </td>
+                        <td style="padding-left: 30px;">
+                            <span>
+                                {{passportModel.data.data.criminalRecord}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: #ffffff; margin-top: 20px;">
+        <div class="ui-tab" id="tab1">
+            <ul class="ui-tab-nav ui-border-b">
+                {% if immigrationModel.data.data.recommendHouse.length>0 %}
+                <li class="current">房源推荐</li>
+                {% endif %}
+                <li {% if immigrationModel.data.data.recommendHouse.length==0 %}class="current"{% endif %}>项目优势</li>
+                <li>申请条件</li>
+                <li>申请流程</li>
+            </ul>
+            <ul class="ui-tab-content" style="width:400%">
+                {% if immigrationModel.data.data.recommendHouse.length>0 %}
+                <li class="current" style="padding-top: 15px; padding-bottom: 0px;">
+                    <ul class="ui-justify ui-whitespace">
+
+                        {% for house in passportModel.data.data.recommendHouse %}
+                                                <li style="width: 50%;">
+                                                    <a href="/house/detail?id={{house.id}}">
+                                                    <div style="padding-right: 5px;">
+                                                        <img src="{{house.picture}}" style="width: 100%">
+                                                        <div style="padding: 10px; padding-left: 0px; background-color: #ffffff">
+                                                            <p style="text-align: left;font-size:18px; margin-bottom: 5px;">{{house.title}}</p>
+                                                            <p style="text-align: left;font-size:18px; margin-bottom: 5px;color: #dfc17b">{{house.price}}万{{house.priceUnit}}</p>
+                                                            <p style="text-align: left;font-size: 12px;">{{house.countryName}} | 约{{house.area}} | {{house.houseType}}</p>
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                </li>
+                                                {% endfor %}
+
+                    </ul>
+                    <div style="width: 100%;height: 45px;line-height: 45px; border-top: 1px solid #ededed;">
+                        <p style="text-align: center;color: #dfc17b"><a href="/house">更多房源</a></p>
+                    </div>
+                </li>
+                {% endif %}
+                <li {% if immigrationModel.data.data.recommendHouse.length==0 %}class="current"{% endif %}>
+                    <ul class="ui-row ui-whitespace contentArea" style="padding-top:10px;padding-bottom:10px;">
+                        {{passportModel.data.data.projectBenefits | safe}}
+                    </ul>
+                </li>
+                <li>
+                    <ul class="ui-row ui-whitespace contentArea" style="padding-top:10px;padding-bottom:10px;">
+                        {{passportModel.data.data.applicationCondition | safe}}
+                    </ul>
+                </li>
+                <li>
+                    <ul class="ui-row ui-whitespace contentArea" style="padding-top:10px;padding-bottom:10px;">
+                        {{passportModel.data.data.applicationProcess | safe}}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <script>
+            (function() {
+                var tab1 = new fz.Scroll('#tab1', {
+                    role: 'tab',
+                    autoplay: false,
+                    interval: 3000
+                });
+            })();
+        </script>
+    </section>
+
+    <section style="background-color: #ffffff; margin-top: 20px; margin-bottom: 20px;">
+
+
+        <div class="ui-tab" id="tab2">
+                    <ul class="ui-tab-nav ui-border-b">
+                        <li id="price_detail" class="current">费用详情</li>
+                        <li id="success_case">成功案例</li>
+                        <li id="country_intro">国家介绍</li>
+                    </ul>
+                    <ul class="ui-tab-content" style="width:300%">
+                        <li id="price_detail_content" class="current" style="padding-top: 20px;padding-bottom: 20px;">
+                            <div class="ui-whitespace contentArea">
+                                {{passportModel.data.data.priceDetail | safe}}
+                            </div>
+                        </li>
+                        <li id="success_case_content" style="display:none;">
+                            <div class="ui-whitespace contentArea">
+                                {{passportModel.data.data.successCase | safe}}
+                            </div>
+                        </li>
+                        <li id="country_intro_content" style="display:none;">
+                            <div class="ui-whitespace contentArea">
+                                {{passportModel.data.data.countryInstroduction | safe}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+        <script>
+                $(document).ready(function(){
+                    $("#price_detail").click(function(){
+
+                        $("#price_detail").addClass("current");
+                        $("#success_case").removeClass("current");
+                        $("#country_intro").removeClass("current");
+
+                        $("#price_detail_content").show();
+                        $("#success_case_content").hide();
+                        $("#country_intro_content").hide();
+                    })
+                    $("#success_case").click(function(){
+
+                        $("#price_detail").removeClass("current");
+                        $("#success_case").addClass("current");
+                        $("#country_intro").removeClass("current");
+
+                        $("#price_detail_content").hide();
+                        $("#success_case_content").show();
+                        $("#country_intro_content").hide();
+                    })
+                    $("#country_intro").click(function(){
+
+                        $("#price_detail").removeClass("current");
+                        $("#success_case").removeClass("current");
+                        $("#country_intro").addClass("current");
+
+                        $("#price_detail_content").hide();
+                        $("#success_case_content").hide();
+                        $("#country_intro_content").show();
+                    })
+                })
+                </script>
+    </section>
+
+    {{ fragment.advisory(countryList.data.list)}}
+
+
+</section><!-- /.ui-container-->
+
+<style>
+    .ui-tab-nav li.current{
+        color: #dfc17b;
+        border-bottom: 2px #dfc17b solid;
+    }
+
+    .ui-form-item {
+        border: 1px solid #dddddd;
+        background-color: #ffffff;
+        margin-bottom: 15px;
+        height: 45px;
+        line-height: 45px;
+    }
+    .ui-form-item label {
+        color: #ababab;
+    }
+</style>
+
+<script>
+    $('.ui-list li,.ui-tiled li').click(function () {
+        if ($(this).data('href')) {
+            location.href = $(this).data('href');
+        }
+    });
+    $('.ui-header .ui-btn').click(function () {
+        location.href = 'index.html';
+    });
+</script>
+
+{% endblock %}

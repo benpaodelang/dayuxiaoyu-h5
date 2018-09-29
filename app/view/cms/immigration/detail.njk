@@ -1,0 +1,251 @@
+{% extends "../template.njk" %}
+{% import "../macro.njk" as fragment %}
+
+{% block body %}
+
+<!--{{ fragment.footer(headTitle="移民项目",type="yimin") }} -->
+
+
+<section class="ui-container">
+
+    <section style="background-color: #ffffff;">
+        <div style="position: relative">
+            <div onclick="history.back()" style="position: absolute;left: 15px;top: 15px;width: 35px;height: 35px;z-index: 100;">
+                <img src="/public/img/fanhui.png" style="width: 100%">
+            </div>
+            <div style="position: absolute;right: 15px;top: 15px;width: 35px;height: 35px;z-index: 100;">
+                <img src="/public/img/fenxiang.png" style="width: 100%">
+            </div>
+            <div style="position: absolute;background-image: url(/public/img/chilun.png); background-repeat: repeat-x;width: 100%;height: 25px;top:270px;background-size:26px; z-index: 100;"></div>
+            <div class="slides-toppic">
+                <h3>
+                    <p>
+                        <ss>{{immigrationModel.data.data.country}}</ss>
+                        {{immigrationModel.data.data.title}}<span>{{immigrationModel.data.data.subTitle}}</span></p>
+                </h3>
+                <img src="{{immigrationModel.data.data.picture}}" >
+            </div>
+            <div class="ui-whitespace yimin">
+                <p>{{immigrationModel.data.data.description}}</p>
+                <dl>
+                    <dt><i class="fa fa-money"></i>投资额度：</dt>
+                    <dd>{{immigrationModel.data.data.price}}</dd>
+                    <dt><i class="fa fa-clock-o"></i>办理周期：</dt>
+                    <dd>{{immigrationModel.data.data.period}}</dd>
+                    <dt><i class="fa fa-book"></i>身份类型：</dt>
+                    <dd>{{immigrationModel.data.data.identityType}}</dd>
+                    <dt><i class="fa fa-home"></i>居住要求：</dt>
+                    <dd>{{immigrationModel.data.data.livingRequirement}}</dd>
+                    <dt><i class="fa fa-calendar-o"></i>无犯罪记录：</dt>
+                    <dd>{{immigrationModel.data.data.criminalRecord}}</dd>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: #ffffff; margin-top: 20px;">
+        <div class="ui-tab" id="tab1">
+            <ul class="ui-tab-nav ui-border-b">
+                {% if immigrationModel.data.data.videoList.length>0 %}
+                <li class="current">视频</li>
+                {% endif %}
+                {% if immigrationModel.data.data.recommendHouse.length>0 %}
+                <li>房源推荐</li>
+                {% endif %}
+
+                <li {% if immigrationModel.data.data.recommendHouse.length==0 %}class="current"{% endif %}>项目优势</li>
+            </ul>
+            <ul class="ui-tab-content" style="width:300%">
+
+                {% if immigrationModel.data.data.videoList.length>0 %}
+                <li {% if immigrationModel.data.data.recommendHouse.length==0 %}class="current"{% endif %}>
+                    <ul class="ui-row ui-whitespace contentArea zw look" >
+                        {% for video in immigrationModel.data.data.videoList %}
+                        <li class="col-sm-3">
+                            <div class="sp">
+                                <video class="video_a" controls="controls"  poster="{{video.image}}" preload="none" width="100%" height="230px" >
+                                    <source src="{{video.path}}" type="video/mp4">
+                                </video>
+                                <p>{{video.name}}</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endif %}
+                {% if immigrationModel.data.data.recommendHouse.length>0 %}
+                <li class="current" style="padding-top: 15px; padding-bottom: 0px;">
+                    <ul class="ui-justify ui-whitespace product-con look">
+                        {% for house in immigrationModel.data.data.recommendHouse %}
+                        <li style="width: 49%;">
+                            <a href="/house/detail?id={{house.id}}">
+                                <div style="">
+                                    <em>
+                                        <img src="{{house.picture}}" alt=""/>
+                                        <img src="/public/img/kb.png" alt="" class="kb" />
+                                    </em>
+                                    <div style="padding: 10px; background-color: #ffffff">
+                                        <p style="text-align: left;font-size:18px; margin-bottom: 5px;">{{house.title}}</p>
+                                        <p style="text-align: left;font-size:18px; margin-bottom: 5px;color: #dfc17b">{{house.price}}万{{house.priceUnit}}</p>
+                                        <p style="text-align: left;font-size: 12px;">{{house.countryName}} | 约{{house.area}}㎡ | {{house.houseType}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div style="width: 100%;height: 45px;line-height: 45px; border-top: 1px solid #ededed;">
+                        <p style="text-align: center;color: #dfc17b"><a href="/house">更多房源</a></p>
+                    </div>
+                </li>
+                {% endif %}
+                <li>
+                    <div class="ui-row ui-whitespace contentArea zw" >
+                        {{immigrationModel.data.data.projectBenefits | safe}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <script>
+            (function() {
+                var tab1 = new fz.Scroll('#tab1', {
+                    role: 'tab',
+                    autoplay: false,
+                    interval: 3000
+                });
+            })();
+        </script>
+    </section>
+
+
+    <section style="background-color: #ffffff; margin-top: 20px; margin-bottom: 20px;">
+        <div class="ui-tab" id="tab2">
+            <ul class="ui-tab-nav ui-border-b">
+                <li id="price_detail" class="current">费用详情</li>
+                <li id="cation_condition">申请条件</li>
+                <li id="cation_process">申请流程</li>
+                <li id="country_intro">国家介绍</li>
+                <!--<li id="success_case">成功案例</li>-->
+            </ul>
+            <ul class="ui-tab-content ui-tab-content" style="width:400%">
+                <li id="price_detail_content" class="current">
+                    <div class="ui-whitespace contentArea zw" style="padding-top: 20px;padding-bottom: 20px;">
+                        {{immigrationModel.data.data.priceDetail | safe}}
+                    </div>
+                </li>
+                <li id="cation_condition_content" style="display:none;">
+
+                    <div class="ui-row ui-whitespace contentArea zw"  style="padding-top: 20px;padding-bottom: 20px;">
+                        {{immigrationModel.data.data.applicationCondition | safe}}
+                    </div>
+                </li>
+                <li id="cation_process_content" style="display:none;">
+                    <div class="ui-whitespace contentArea zw" style="padding-top: 20px;padding-bottom: 20px;">
+                        {{immigrationModel.data.data.applicationProcess | safe}}
+                    </div>
+                </li>
+                <li id="country_intro_content" style="display:none;">
+                    <div class="ui-whitespace contentArea zw" style="padding-top: 20px;padding-bottom: 20px;">
+                        {{immigrationModel.data.data.countryInstroduction | safe}}
+                    </div>
+                </li>
+                <!--<li id="success_case_content" style="display:none;">
+                    <div class="ui-whitespace contentArea zw">
+                        {{immigrationModel.data.data.successCase | safe}}
+                    </div>
+                </li>-->
+            </ul>
+        </div>
+
+        <script>
+        $(document).ready(function(){
+            $("#price_detail").click(function(){
+
+                $("#price_detail").addClass("current");
+                $("#cation_condition").removeClass("current");
+                $("#cation_process").removeClass("current");
+                $("#country_intro").removeClass("current");
+
+                $("#price_detail_content").show();
+                $("#cation_condition_content").hide();
+                $("#cation_process_content").hide();
+                $("#country_intro_content").hide();
+            })
+            $("#cation_condition").click(function(){
+
+                $("#price_detail").removeClass("current");
+                $("#cation_condition").addClass("current");
+                $("#cation_process").removeClass("current");
+                $("#country_intro").removeClass("current");
+
+                $("#price_detail_content").hide();
+                $("#cation_condition_content").show();
+                $("#cation_process_content").hide();
+                $("#country_intro_content").hide();
+            })
+            $("#cation_process").click(function(){
+
+                $("#price_detail").removeClass("current");
+                $("#cation_condition").removeClass("current");
+                $("#cation_process").addClass("current");
+                $("#country_intro").removeClass("current");
+
+                $("#price_detail_content").hide();
+                $("#cation_condition_content").hide();
+                $("#cation_process_content").show();
+                $("#country_intro_content").hide();
+            })
+
+            $("#country_intro").click(function(){
+
+                $("#price_detail").removeClass("current");
+                $("#cation_condition").removeClass("current");
+                $("#cation_process").removeClass("current");
+                $("#country_intro").addClass("current");
+
+                $("#price_detail_content").hide();
+                $("#cation_condition_content").hide();
+                $("#cation_process_content").hide();
+                $("#country_intro_content").show();
+            })
+        })
+        </script>
+
+    </section>
+
+    {{ fragment.advisory(countryList.data.list,ctx.csrf)}}
+
+
+</section><!-- /.ui-container-->
+
+<style>
+    .ui-tab-nav li.current{
+        color: #dfc17b;
+        border-bottom: 2px #dfc17b solid;
+    }
+
+    .ui-form-item {
+        border: 1px solid #dddddd;
+        background-color: #ffffff;
+        margin-bottom: 15px;
+        height: 45px;
+        line-height: 45px;
+    }
+    .ui-form-item label {
+        color: #ababab;
+    }
+</style>
+
+<script>
+    $('.ui-list li,.ui-tiled li').click(function () {
+        if ($(this).data('href')) {
+            location.href = $(this).data('href');
+        }
+    });
+    $('.ui-header .ui-btn').click(function () {
+        location.href = 'index.html';
+    });
+</script>
+
+
+{% endblock %}

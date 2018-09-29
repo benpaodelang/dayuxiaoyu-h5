@@ -1,0 +1,293 @@
+{% extends "../template.njk" %}
+{% import "../macro.njk" as fragment %}
+
+{% block body %}
+
+{{ fragment.footer(headTitle="海外房产",type="fangchan") }}
+
+<section class="ui-container">
+
+
+    <!-- 焦点图 -->
+    <div class="slides2">
+        {% for slider in sliderList.data.list %}
+        <div style="background-image:url({{slider.image}})">
+            <a href="{{slider.url}}" ></a>
+        </div>
+        {% endfor %}
+    </div>
+    <script type="text/javascript" src="/public/js/jquery.slides.js"></script><!-- 幻灯片 -->
+    <!-- /焦点图 -->
+
+<!--幻灯片
+<section id="slider" style="margin-top: 45px;">
+        <div class="ui-slider" style="padding-top: 30%">
+            <ul class="ui-slider-content" style="width: {{sliderList.data.list.length}}00%">
+             {% for slider in sliderList.data.list %}
+                <li>
+                    <a href="{{slider.url}}">
+                        <span style="background-image:url({{slider.image}})"></span>
+                    </a>
+                </li>
+             {% endfor %}
+            </ul>
+        </div>
+
+        <script class="demo-script">
+            (function () {
+                var slider = new fz.Scroll('.ui-slider', {
+                    role: 'slider',
+                    indicator: true,
+                    autoplay: true,
+                    interval: 3000
+                });
+            })();
+        </script>
+    </section> -->
+
+    <!-- 筛选条 -->
+    <section id="selectBar">
+        <div class="ui-form-item ui-border-b" style="background-color: #ffffff">
+            <div class="ui-select-group" style="margin-left: 0px;">
+                <div class="ui-select" style="width: 25%;margin-right: 0px;">
+                    <select onchange="selectCountry(this.value)" style="color: #333333;font-size: 14px;">
+                    <option value="-1" {% if not request.country  %}selected{% endif %}>全部</option>
+                    {% for country in countryList.data.list %}
+                    <option {% if request.country==country.id  %}selected{% endif %} value="{{country.id}}">{{country.name}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="ui-select" style="width: 25%;margin-right: 0px;">
+                    <select onchange="selectPrice(this.value)" style="color: #333333;font-size: 14px;">
+                        <option value="-1" {% if not request.priceFrom and not request.priceTo  %}selected{% endif %}>全部</option>
+                        <option value="0,100" {% if request.priceTo==100  %}selected{% endif %}>100万以下</option>
+                        <option value="100,300" {% if request.priceFrom==100 and request.priceTo==300  %}selected{% endif %}>100-300万</option>
+                        <option value="300,500" {% if request.priceFrom==300 and request.priceTo==500  %}selected{% endif %}>300-500万</option>
+                        <option value="500,800" {% if request.priceFrom==500 and request.priceTo==800  %}selected{% endif %}>500-800万</option>
+                        <option value="800,1000" {% if request.priceFrom==800 and request.priceTo==1000  %}selected{% endif %}>800-1000万</option>
+                        <option value="1000,100000000" {% if request.priceFrom==1000 and request.priceTo==100000000  %}selected{% endif %}>1000万以上</option>
+                    </select>
+                </div>
+                <div class="ui-select" style="width: 25%;margin-right: 0px;">
+                    <select onchange="selectPurpose(this.value)" style="color: #333333;font-size: 14px;">
+                        <option value="-1" {% if not request.purpose %}selected{% endif %}>全部</option>
+                        <option value="房产投资"  {% if request.purpose=='房产投资' %}selected{% endif %} >房产投资</option>
+                        <option value="永居卡" {% if request.purpose=='永居卡' %}selected{% endif %}>永居卡</option>
+                        <option value="护照项目" {% if request.purpose=='护照项目' %}selected{% endif %}>护照项目</option>
+                    </select>
+                </div>
+                <div class="ui-select" style="width: 25%;margin-right: 0px;">
+                    <select onchange="selectHouseType(this.value)" style="color: #333333;font-size: 14px;">
+                        <option value="-1" {% if not request.houseType %}selected{% endif %}>全部</option>
+                        <option value="公寓" {% if request.houseType=='公寓' %}selected{% endif %}>公寓</option>
+                        <option value="别墅" {% if request.houseType=='别墅' %}selected{% endif %}>别墅</option>
+                        <option value="商铺" {% if request.houseType=='商铺' %}selected{% endif %}>商铺</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <script>
+
+                    var request = {
+                                country:'{{request.country}}',
+                                priceFrom:'{{request.priceFrom}}',
+                                priceTo:'{{request.priceTo}}',
+                                houseType:'{{request.houseType}}',
+                                pageNo:'{{request.pageNo}}',
+                                purpose:'{{request.purpose}}'
+                    }
+
+                    function refreshUrl(){
+                        var url = '/house?';
+                        if(request.country){
+                            url = url + 'country=' + request.country + "&"
+                        }
+                        if(request.priceFrom){
+                            url = url + 'priceFrom=' + request.priceFrom + "&"
+                        }
+                        if(request.priceTo){
+                            url = url + 'priceTo=' + request.priceTo + "&"
+                        }
+                        if(request.houseType){
+                            url = url + 'houseType=' + request.houseType + "&"
+                        }
+                        if(request.pageNo){
+                            url = url + 'pageNo=' + request.pageNo + "&"
+                        }
+                        if(request.purpose){
+                            url = url + 'purpose=' + request.purpose + "&"
+                        }
+                        url = url + '#selectBar'
+                        $(location).attr('href', url);
+                    }
+
+                    function clearCountry(){
+                        delete request.country;
+                        refreshUrl();
+                    }
+
+                    function selectCountry(country){
+                        if(country=="-1"){
+                            clearCountry();
+                            return;
+                        }
+                        request.country = country;
+                        refreshUrl();
+                    }
+
+                    function clearPrice(){
+                        delete request.priceFrom;
+                        delete request.priceTo;
+                        refreshUrl();
+                    }
+
+                    function selectPrice(fromAndTo){
+                        if(fromAndTo=="-1"){
+                            clearPrice();
+                            return;
+                        }
+                        var fromTo = fromAndTo.split(",");
+                        request.priceFrom = fromTo[0];
+                        request.priceTo = fromTo[1];
+                        refreshUrl();
+                    }
+
+                    function clearPurpose(){
+                        delete request.purpose;
+                        refreshUrl();
+                    }
+
+                    function selectPurpose(purpose){
+                        if(purpose=="-1"){
+                            clearPurpose();
+                            return;
+                        }
+                        request.purpose = purpose;
+                        refreshUrl();
+                    }
+
+                    function clearHouseType(){
+                        delete request.houseType;
+                        refreshUrl();
+                    }
+
+                    function selectHouseType(houseType){
+                        if(houseType=="-1"){
+                            clearHouseType();
+                            return;
+                        }
+                        request.houseType = houseType;
+                        refreshUrl();
+                    }
+
+                    function selectPage(page){
+                        request.pageNo = page;
+                        refreshUrl();
+                    }
+
+                    </script>
+    </section>
+
+
+
+    <section style="margin-top: 20px;">
+
+        <!-- 第一条
+        <ul class="ui-justify ui-whitespace look" style="margin-bottom: 10px;">
+            {% for house in houseList.data.list %}
+            {% if loop.index == 1 %}
+            <li style="width: 100%;">
+                <a href="/house/detail?id={{house.id}}">
+                <div style="background-color: #fff">
+                    <em>
+                        <img src="{{house.picture}}" alt=""/>
+                        <img src="/public/img/kb.png" alt="" class="kb" />
+                    </em>
+                    <div style="padding: 10px;">
+                        <p style="text-align: left;font-size:25px; margin-bottom: 5px; height: 33px;">{{house.title}}
+                            <span style="display:block;float:right;font-weight:bold;">{{house.price}}万{{house.priceUnit}}</span>
+                        </p>
+                        <p style="text-align: left">{{house.countryName}} | {{house.region}} | 约{{house.area}} | {{house.houseType}}</p>
+                    </div>
+                </div>
+                    </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul> -->
+
+        <!-- 其余记录 -->
+
+        {% for house in houseList.data.list %}
+        {% if loop.index%2 == 1 %}
+        <ul class="ui-justify ui-whitespace look" style="margin-bottom:0px;">
+        {% endif %}
+            <li style="width: 49%;">
+                <a href="/house/detail?id={{house.id}}">
+                    <div style="">
+                        <em>
+                            <img src="{{house.picture}}" alt=""/>
+                            <img src="/public/img/kb.png" alt="" class="kb" />
+                        </em>
+                        <div style="padding: 10px; background-color: #ffffff">
+                            <p style="text-align: left;font-size:18px; margin-bottom: 5px;">{{house.title}}</p>
+                            <p style="text-align: left;font-size:18px; margin-bottom: 5px;color: #dfc17b">{{house.price}}万{{house.priceUnit}}</p>
+                            <p style="text-align: left;font-size: 12px;">{{house.countryName}} | 约{{house.area}} | {{house.houseType}}</p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {% if loop.index%2 == 0 %}
+        </ul>
+        {% endif %}
+        {% endfor %}
+
+
+
+        <ul class="ui-justify ui-whitespace" style="margin-top:20px;margin-bottom: 30px;">
+            <li style="width: 25%;">
+                <img src="/public/img/aqbz.png" style="width: 50%;">
+                <p style="color: #999999; margin-top: 10px;font-size: 13px;">安全保障</p>
+            </li>
+            <li style="width: 25%;">
+                <img src="/public/img/zsfy.png" style="width: 50%;">
+                <p style="color: #999999; margin-top: 10px;font-size: 13px;">真实房源</p>
+            </li>
+            <li style="width: 25%;">
+                <img src="/public/img/zytd.png" style="width: 50%;">
+                <p style="color: #999999; margin-top: 10px;font-size: 13px;">专业团队</p>
+            </li>
+            <li style="width: 25%;">
+                <img src="/public/img/ajfw.png" style="width: 50%;">
+                <p style="color: #999999; margin-top: 10px;font-size: 13px;">安家服务</p>
+            </li>
+        </ul>
+    </section>
+
+
+</section><!-- /.ui-container-->
+
+<style>
+    .ui-tab-nav li.current{
+        color: #dfc17b;
+        border-bottom: 2px #dfc17b solid;
+    }
+
+
+    .ui-select:after {
+        right: 12px;
+    }
+</style>
+
+<script>
+    $('.ui-list li,.ui-tiled li').click(function () {
+        if ($(this).data('href')) {
+            location.href = $(this).data('href');
+        }
+    });
+    $('.ui-header .ui-btn').click(function () {
+        location.href = 'index.html';
+    });
+</script>
+
+{% endblock %}
